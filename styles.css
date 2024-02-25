@@ -1,24 +1,78 @@
+/* Отключение инерционной прокрутки на мобильных устройствах */
 body, html {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    overflow: hidden; /* Убираем полосы прокрутки */
+    overflow: hidden;
+    background-color: black; /* Цвет фона черный */
+    overscroll-behavior: none; /* Отключаем инерционную прокрутку */
 }
-
 
 .container {
     flex-direction: column;
     overflow-y: scroll;
-    scroll-snap-type: y mandatory; /* Добавляем scroll-snap для плавной прокрутки */
+    scroll-snap-type: y mandatory;
     height: 100vh;
 }
 
 .container > div {
-    scroll-snap-align: start; /* Привязываем к верху каждый div */
+    scroll-snap-align: start;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    transition: transform 0.5s ease; /* Добавляем плавную анимацию */
+    transition: transform 0.5s ease;
+    background-color: black; /* Цвет фона черный */
+    overflow: hidden;
+    position: relative; /* Позиционируем div относительно */
+}
+
+video {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    position: absolute; /* Позиционируем видео абсолютно внутри div */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Центрируем видео по центру div */
+    pointer-events: none; /* Отключаем события мыши на видео для корректной обработки нажатий на div */
+}
+
+.pause-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+.pause-icon {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px; /* Размер иконки паузы */
+    height: 100px;
+    background-image: url(pause.png); /* Путь к изображению паузы */
+    background-size: cover;
+    cursor: pointer;
+}
+
+.like-button {
+    position: absolute;
+    top: 50%;
+    right: 5%; /* Отступ справа */
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background-image: url(like.png); /* Путь к изображению лайка */
+    background-size: cover;
+    cursor: pointer;
+    transition: transform 0.2s ease; /* Анимация */
+}
+
+.like-active {
+    background-image: url(liked.png); /* Путь к изображению активного лайка */
+    transform: translateY(-50%) scale(1.2); /* Увеличение размера при активации */
 }
